@@ -1,15 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-inter);
+  --font-headline: var(--font-manrope);
+
+  --color-primary: #004e63;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #006782;
+  --color-on-primary-container: #9fe2ff;
+  
+  --color-secondary: #4d616c;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #d0e6f3;
+  --color-on-secondary-container: #536772;
+
+  --color-tertiary: #643f00;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #845500;
+  --color-on-tertiary-container: #ffd29a;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --color-background: #fbf9f8;
+  --color-on-background: #1b1c1c;
+
+  --color-surface: #fbf9f8;
+  --color-on-surface: #1b1c1c;
+  --color-surface-variant: #e4e2e2;
+  --color-on-surface-variant: #3f484c;
+
+  --color-outline: #6f787d;
+  --color-outline-variant: #bfc8cd;
+
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f3f3;
+  --color-surface-container: #efeded;
+  --color-surface-container-high: #e9e8e7;
+  --color-surface-container-highest: #e4e2e2;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --background: #fbf9f8;
+  --foreground: #1b1c1c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +57,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif;
+  overflow-x: hidden;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
