@@ -4,10 +4,42 @@ import React, { useState } from "react";
 import { Eye, EyeOff, Check, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isStaySignedIn, setIsStaySignedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleCredentialsLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (res?.error) {
+      setError("Invalid email or password");
+      setLoading(false);
+    } else {
+      // Added slightly delayed redirect for smoother UX
+      router.push("/");
+      router.refresh();
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    signIn("google", { callbackUrl: "/" });
+  };
 
   return (
     <div className="w-full md:w-1/2 p-8 lg:p-20 flex flex-col justify-center bg-surface-container-lowest h-full overflow-y-auto">
@@ -22,6 +54,8 @@ const LoginForm = () => {
 
       {/* Google Social Login */}
       <motion.button
+        type="button"
+        onClick={handleGoogleLogin}
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.98 }}
         className="w-full flex items-center justify-center gap-4 py-4 px-6 bg-surface rounded-2xl border border-outline-variant/30 hover:bg-surface-container-low transition-all duration-200 group shadow-sm hover:shadow-md"
@@ -58,7 +92,16 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+      {error && (
+        <div className="mb-6 p-4 text-sm text-error bg-error-container rounded-2xl border border-error/20 flex items-center gap-3 font-medium">
+          <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {error}
+        </div>
+      )}
+
+      <form className="space-y-8" onSubmit={handleCredentialsLogin}>
         <div className="space-y-3">
           <label
             className="block text-xs font-black uppercase tracking-widest text-on-surface-variant ml-2 leading-none"
@@ -70,6 +113,8 @@ const LoginForm = () => {
             className="w-full px-6 py-5 bg-surface-container-highest/50 border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 focus:bg-surface transition-all text-on-surface placeholder-on-surface-variant/40 font-medium"
             id="email"
             name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="name@example.com"
             required
             type="email"
@@ -96,6 +141,8 @@ const LoginForm = () => {
               className="w-full px-6 py-5 bg-surface-container-highest/50 border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 focus:bg-surface transition-all text-on-surface placeholder-on-surface-variant/40 font-medium"
               id="password"
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
               type={showPassword ? "text" : "password"}
@@ -128,10 +175,11 @@ const LoginForm = () => {
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full bg-primary text-on-primary py-5 px-8 rounded-2xl font-black text-xl hover:bg-primary-container transition-all shadow-xl shadow-primary/10 mt-6 flex items-center justify-center gap-3 group"
+          disabled={loading}
+          className="w-full bg-primary text-on-primary py-5 px-8 rounded-2xl font-black text-xl hover:bg-primary-container transition-all shadow-xl shadow-primary/10 mt-6 flex items-center justify-center gap-3 group disabled:opacity-70 disabled:cursor-not-allowed"
           type="submit"
         >
-          Sign In <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
+          {loading ? "Signing in..." : "Sign In"} <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
         </motion.button>
       </form>
 

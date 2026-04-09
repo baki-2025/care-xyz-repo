@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { AuthProvider } from "@/components/AuthProvider";
 import "./globals.css";
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -30,7 +30,7 @@ export default function RootLayout({
       className={`${inter.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-on-background">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

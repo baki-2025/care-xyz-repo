@@ -4,8 +4,71 @@ import React from "react";
 import { Mail, Phone, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [nid, setNid] = React.useState("");
+  const [contact, setContact] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password, nid, contact }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.message || "Registration failed");
+        setLoading(false);
+        return;
+      }
+
+      // Automatically sign in upon successful registration
+      const signInRes = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (signInRes?.error) {
+        setError("Account created, but couldn't log in.");
+        setLoading(false);
+      } else {
+        router.push("/");
+        router.refresh();
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An unexpected error occurred");
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignup = () => {
+    signIn("google", { callbackUrl: "/" });
+  };
+
   return (
     <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-surface-container-lowest h-full overflow-y-auto">
       <div className="max-w-md mx-auto w-full">
@@ -20,6 +83,8 @@ const RegisterForm = () => {
 
         {/* Social Signup */}
         <motion.button
+          type="button"
+          onClick={handleGoogleSignup}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.98 }}
           className="w-full flex items-center justify-center gap-4 py-4 px-6 bg-surface-container-low hover:bg-surface-container-high transition-all rounded-2xl border border-outline-variant/10 font-extrabold text-on-surface mb-10 group shadow-sm hover:shadow-md"
@@ -54,8 +119,17 @@ const RegisterForm = () => {
           </span>
         </div>
 
+        {error && (
+          <div className="mb-6 p-4 text-sm text-error bg-error-container rounded-2xl border border-error/20 flex items-center gap-3 font-medium">
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {error}
+          </div>
+        )}
+
         {/* Form */}
-        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-6" onSubmit={handleRegister}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label
@@ -68,7 +142,10 @@ const RegisterForm = () => {
                 className="w-full px-5 py-4 bg-surface-container-highest border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-bold"
                 id="name"
                 name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="John Doe"
+                required
                 type="text"
               />
             </div>
@@ -83,6 +160,8 @@ const RegisterForm = () => {
                 className="w-full px-5 py-4 bg-surface-container-highest border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-bold"
                 id="nid"
                 name="nid"
+                value={nid}
+                onChange={(e) => setNid(e.target.value)}
                 placeholder="1234-5678-90"
                 type="text"
               />
@@ -105,7 +184,10 @@ const RegisterForm = () => {
                 className="w-full pl-14 pr-5 py-4 bg-surface-container-highest border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-bold"
                 id="email"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
+                required
                 type="email"
               />
             </div>
@@ -127,6 +209,8 @@ const RegisterForm = () => {
                 className="w-full pl-14 pr-5 py-4 bg-surface-container-highest border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-bold"
                 id="contact"
                 name="contact"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
                 placeholder="+1 (555) 000-0000"
                 type="tel"
               />
@@ -145,7 +229,10 @@ const RegisterForm = () => {
                 className="w-full px-5 py-4 bg-surface-container-highest border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-bold"
                 id="password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
+                required
                 type="password"
               />
             </div>
@@ -160,7 +247,10 @@ const RegisterForm = () => {
                 className="w-full px-5 py-4 bg-surface-container-highest border border-outline-variant/10 rounded-2xl focus:ring-4 focus:ring-primary/20 transition-all placeholder:text-outline/50 font-bold"
                 id="confirm_password"
                 name="confirm_password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
+                required
                 type="password"
               />
             </div>
@@ -170,10 +260,11 @@ const RegisterForm = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-5 bg-primary text-on-primary font-black text-xl rounded-[2rem] hover:bg-primary-container transition-all shadow-xl shadow-primary/10 flex items-center justify-center gap-3 group uppercase tracking-tight"
+              disabled={loading}
+              className="w-full py-5 bg-primary text-on-primary font-black text-xl rounded-[2rem] hover:bg-primary-container transition-all shadow-xl shadow-primary/10 flex items-center justify-center gap-3 group uppercase tracking-tight disabled:opacity-70 disabled:cursor-not-allowed"
               type="submit"
             >
-              Create Account
+              {loading ? "Creating..." : "Create Account"}
               <ArrowRight size={24} className="transition-transform group-hover:translate-x-1" />
             </motion.button>
           </div>

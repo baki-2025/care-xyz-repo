@@ -4,9 +4,11 @@ import React, { useState, useEffect } from "react";
 import { User, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
+  const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -64,18 +66,44 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link href="/login">
-            <button className="hidden sm:block px-6 py-2 rounded-full font-medium text-primary hover:bg-surface-container-low transition-all cursor-pointer">
-              Login
-            </button>
-          </Link>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-container text-primary cursor-pointer hover:bg-secondary-container/80 transition-colors"
-          >
-            <User size={24} />
-          </motion.div>
+          {session ? (
+            <>
+              <span className="hidden sm:inline-block font-bold text-on-surface text-sm">
+                Hi, {session.user?.name || "User"}
+              </span>
+              <button
+                onClick={() => signOut()}
+                className="hidden sm:block px-6 py-2 rounded-full font-medium text-error hover:bg-error/10 transition-all cursor-pointer border border-error/50"
+              >
+                Logout
+              </button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-on-primary cursor-pointer shadow-md select-none"
+              >
+                <span className="font-bold text-lg">
+                  {session.user?.name?.[0]?.toUpperCase() || "U"}
+                </span>
+              </motion.div>
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <button className="hidden sm:block px-6 py-2 rounded-full font-medium text-primary hover:bg-surface-container-low transition-all cursor-pointer">
+                  Login
+                </button>
+              </Link>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-container text-primary cursor-pointer hover:bg-secondary-container/80 transition-colors"
+                onClick={() => document.querySelector('a[href="/login"]')?.dispatchEvent(new MouseEvent('click'))}
+              >
+                <User size={24} />
+              </motion.div>
+            </>
+          )}
           
           <button
             className="md:hidden text-primary"
@@ -107,11 +135,20 @@ const Navbar = () => {
                 </a>
               ))}
               <hr className="border-outline-variant" />
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="w-full py-3 rounded-xl bg-primary text-on-primary font-bold">
-                  Login
+              {session ? (
+                <button
+                  onClick={() => signOut()}
+                  className="w-full py-3 rounded-xl bg-error/10 text-error font-bold border border-error/20"
+                >
+                  Logout
                 </button>
-              </Link>
+              ) : (
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className="w-full py-3 rounded-xl bg-primary text-on-primary font-bold">
+                    Login
+                  </button>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
