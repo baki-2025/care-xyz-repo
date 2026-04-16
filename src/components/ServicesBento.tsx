@@ -48,12 +48,19 @@ const ServicesBento = () => {
                 </li>
               ))}
             </ul>
+            <div className="mt-8 group/link inline-block">
+              <Link href="/service/baby-care">
+                <button className="flex items-center gap-2 font-bold text-lg text-primary group-hover/link:gap-4 transition-all py-2 border-b-2 border-primary/30 hover:border-primary">
+                  Learn More <ArrowRight size={20} />
+                </button>
+              </Link>
+            </div>
           </div>
-          <div className="absolute bottom-0 right-0 w-[60%] h-[75%] group-hover:scale-105 transition-transform duration-700 ease-out">
+          <div className="absolute bottom-0 right-0 w-[60%] h-[75%] group-hover:scale-105 transition-transform duration-700 ease-out z-0">
             <img
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmD6GqHQ0-htTQkvxrokevINej0bkRn6iZqUp-Wu6nl7rcxQLOasResetObHTJFUkJmxBgu-k1Fp2O823iePJEbG8rRkfU71u5sTCNPCuSAOMD7xvZMnSoUNtlm0y-gJA0_72UbOoZapLLwyN2ynwhytMl5tbDr-Ie1o77lJAF-ZQp282gPRgSzxTmXoqHDlDEEgiukxb9J1oz54i3VkTf0Xh8sSsfws3gc83IJQmtrFu3aRxeLv2cOsJEj5G_uQOFLWw8T6gBRg"
               alt="Baby playing"
-              className="w-full h-full object-cover rounded-tl-[4rem]"
+              className="w-full h-full object-cover rounded-tl-[4rem] opacity-50 md:opacity-100"
             />
           </div>
         </motion.div>
@@ -73,9 +80,9 @@ const ServicesBento = () => {
               focusing on mobility, nutrition, and mental well-being.
             </p>
           </div>
-          <div className="mt-12 group">
-            <Link href="/services/elderly">
-              <button className="flex items-center gap-2 font-bold text-lg group-hover:gap-4 transition-all py-2 border-b-2 border-white/30 hover:border-white">
+          <div className="mt-12 group/link">
+            <Link href="/service/elderly-care">
+              <button className="flex items-center gap-2 font-bold text-lg group-hover/link:gap-4 transition-all py-2 border-b-2 border-white/30 hover:border-white">
                 Learn More <ArrowRight size={20} />
               </button>
             </Link>
@@ -95,12 +102,21 @@ const ServicesBento = () => {
               Professional nursing and post-operative care at home. We help manage recovery with clinical precision and emotional support.
             </p>
           </div>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {["In-home Nursing", "Post-op Support", "Recovery"].map((tag) => (
-              <span key={tag} className="px-4 py-1.5 bg-white/50 rounded-full text-sm font-bold text-primary">
-                {tag}
-              </span>
-            ))}
+          <div className="mt-8 flex flex-col items-start space-y-6">
+            <div className="flex flex-wrap gap-2">
+              {["In-home Nursing", "Post-op Support", "Recovery"].map((tag) => (
+                <span key={tag} className="px-4 py-1.5 bg-white/50 rounded-full text-sm font-bold text-primary">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="group/link">
+              <Link href="/service/sick-people-service">
+                <button className="flex items-center gap-2 font-bold text-lg text-primary group-hover/link:gap-4 transition-all py-2 border-b-2 border-primary/30 hover:border-primary">
+                  Learn More <ArrowRight size={20} />
+                </button>
+              </Link>
+            </div>
           </div>
         </motion.div>
 

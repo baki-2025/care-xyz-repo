@@ -6,6 +6,11 @@ import Testimonials from "@/components/Testimonials";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
+export const metadata = {
+  title: "Care.xyz | Trusted Baby Sitting & Elderly Care",
+  description: "Care.xyz is a web application helping users book reliable and trusted care services for children, elderly, or sick people at home. Accessible, secure, and professional.",
+};
+
 export default function Home() {
   return (
     <>

@@ -7,8 +7,14 @@ export async function POST(req: Request) {
   try {
     const { name, email, password, nid, contact } = await req.json();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !nid || !contact) {
       return NextResponse.json({ message: "Missing required fields." }, { status: 400 });
+    }
+
+    // Password validation: 6+ char, 1 uppercase, 1 lowercase
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      return NextResponse.json({ message: "Password must be at least 6 characters long and include an uppercase and a lowercase letter." }, { status: 400 });
     }
 
     await connectToDatabase();
