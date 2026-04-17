@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
 import "./globals.css";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -14,16 +14,16 @@ const manrope = Manrope({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Care.IO | Reliable and trusted care for your loved ones.",
-  description: "We connect you with certified, empathetic caregivers who treat your loved ones like their own family. Professional care delivered with a personal touch.",
+export const metadata = {
+  title: {
+    default: "Care.xyz | Trusted Baby Sitting & Elderly Care",
+    template: "%s | Care.xyz"
+  },
+  description: "Care.xyz connects you with reliable, trusted caregivers for children, seniors, and sick individuals. Professional home care services whenever and wherever you need them.",
+  keywords: ["baby sitting", "elderly care", "sick care", "home care service", "trusted caregivers"],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html
       lang="en"

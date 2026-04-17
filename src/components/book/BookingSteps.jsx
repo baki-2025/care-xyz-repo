@@ -30,13 +30,13 @@ const BookingSteps = () => {
     [selectedDivision, selectedDistrict]
   );
 
-  const handleDivisionChange = (div: string) => {
+  const handleDivisionChange = (div) => {
     setSelectedDivision(div);
     setSelectedDistrict("");
     setSelectedArea("");
   };
 
-  const handleDistrictChange = (district: string) => {
+  const handleDistrictChange = (district) => {
     setSelectedDistrict(district);
     setSelectedArea("");
   };

@@ -16,7 +16,7 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleCredentialsLogin = async (e: React.FormEvent) => {
+  const handleCredentialsLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");

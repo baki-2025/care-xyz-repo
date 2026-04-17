@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CheckCircle2, IndianRupee, Clock } from "lucide-react";
+import { CheckCircle2, Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { careServices } from "@/data/careServices";
 
-export async function generateMetadata({ params }: { params: Promise<{ service_id: string }> }) {
+export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const service = careServices.find((s) => s.id === resolvedParams.service_id);
   if (!service) return { title: "Service Not Found - Care.xyz" };
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ service_i
   };
 }
 
-export default async function ServiceDetailPage({ params }: { params: Promise<{ service_id: string }> }) {
+export default async function ServiceDetailPage({ params }) {
   const resolvedParams = await params;
   const service = careServices.find((s) => s.id === resolvedParams.service_id);
   

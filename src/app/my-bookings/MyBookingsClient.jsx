@@ -3,12 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, MapPin, Search, XCircle, Eye } from "lucide-react";
 import Link from "next/link";
-import { IBooking } from "@/models/Booking";
 
 export default function MyBookingsClient() {
-  const [bookings, setBookings] = useState<any[]>([]);
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cancelling, setCancelling] = useState<string | null>(null);
+  const [cancelling, setCancelling] = useState(null);
 
   useEffect(() => {
     fetchBookings();
@@ -28,7 +27,7 @@ export default function MyBookingsClient() {
     }
   };
 
-  const handleCancel = async (id: string) => {
+  const handleCancel = async (id) => {
     if (!confirm("Are you sure you want to cancel this booking?")) return;
     
     setCancelling(id);
@@ -137,15 +136,22 @@ export default function MyBookingsClient() {
                       <div className="font-black text-lg">৳{booking.totalPrice.toLocaleString()}</div>
                     </td>
 
-                    <td className="px-6 py-6">
-                      <span className={`px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                        booking.status === "pending" ? "bg-amber-100 text-amber-800 border border-amber-200" :
-                        booking.status === "confirmed" ? "bg-blue-100 text-blue-800 border border-blue-200" :
-                        booking.status === "completed" ? "bg-green-100 text-green-800 border border-green-200" :
-                        "bg-red-100 text-red-800 border border-red-200"
-                      }`}>
-                        {booking.status}
-                      </span>
+                    <td className="px-6 py-6 space-y-2">
+                      <div className="flex flex-col gap-2">
+                        <span className={`w-fit px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${
+                          booking.status === "pending" ? "bg-amber-100 text-amber-800 border border-amber-200" :
+                          booking.status === "confirmed" ? "bg-blue-100 text-blue-800 border border-blue-200" :
+                          booking.status === "completed" ? "bg-green-100 text-green-800 border border-green-200" :
+                          "bg-red-100 text-red-800 border border-red-200"
+                        }`}>
+                          {booking.status}
+                        </span>
+                        <span className={`w-fit px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${
+                          booking.paymentStatus === "paid" ? "bg-green-50 text-green-600 border-green-100" : "bg-surface-container text-on-surface-variant border-outline-variant/20"
+                        }`}>
+                          {booking.paymentStatus || 'pending'}
+                        </span>
+                      </div>
                     </td>
 
                     <td className="px-6 py-6 text-right">

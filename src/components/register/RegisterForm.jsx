@@ -18,7 +18,7 @@ const RegisterForm = () => {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match");
@@ -55,7 +55,9 @@ const RegisterForm = () => {
         setError("Account created, but couldn't log in.");
         setLoading(false);
       } else {
-        router.push("/");
+        // If there's a specific callbackUrl (e.g. from booking), use it; else go to home
+        const callbackUrl = new URLSearchParams(window.location.search).get("callbackUrl") || "/";
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch (err) {

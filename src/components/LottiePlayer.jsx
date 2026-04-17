@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import Lottie from "lottie-react";
-
-interface LottiePlayerProps {
-  src: string;
-  className?: string;
-  loop?: boolean;
-}
+import React from 'react';
+import Lottie from 'lottie-react';
 
 // Dynamic Lottie loader — accepts path to a JSON file in /public
-const LottiePlayer = ({ src, className = "", loop = true }: LottiePlayerProps) => {
+const LottiePlayer = ({ src, className = '', loop = true }) => {
   const [animationData, setAnimationData] = React.useState(null);
 
   React.useEffect(() => {

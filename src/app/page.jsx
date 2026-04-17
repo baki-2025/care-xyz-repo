@@ -7,8 +7,8 @@ import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Care.xyz | Trusted Baby Sitting & Elderly Care",
-  description: "Care.xyz is a web application helping users book reliable and trusted care services for children, elderly, or sick people at home. Accessible, secure, and professional.",
+  title: "Care.xyz | Reliable Home Care for Your Loved Ones",
+  description: "Easily book trusted caregivers for children, elderly, and those in need. Care.xyz provides professional, empathetic, and accessible caregiving services across Bangladesh.",
 };
 
 export default function Home() {

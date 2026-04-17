@@ -13,7 +13,7 @@ export const metadata = {
   description: "Secure your personalized care in three simple steps.",
 };
 
-export default async function BookingPage({ params }: { params: Promise<{ service_id: string }> }) {
+export default async function BookingPage({ params }) {
   const session = await getServerSession(authOptions);
   const resolvedParams = await params;
 
@@ -28,7 +28,7 @@ export default async function BookingPage({ params }: { params: Promise<{ servic
   }
 
   // extract the user ID
-  const userId = (session.user as any).id || "";
+  const userId = session.user.id || "";
 
   return (
     <>
