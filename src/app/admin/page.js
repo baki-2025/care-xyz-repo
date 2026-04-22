@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Shield, Users, BarChart3, CreditCard, Clock } from "lucide-react";
+import { Shield, BarChart3, CreditCard, Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

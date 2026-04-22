@@ -21,7 +21,7 @@ const BookingHeader = () => {
           Secure Your <br /> Personalized Care
         </motion.h1>
         <p className="text-on-surface-variant text-lg max-w-xl font-body font-medium">
-          Complete your booking in three simple steps. We'll match you with a
+          Complete your booking in three simple steps. We&apos;ll match you with a
           vetted professional within 24 hours.
         </p>
       </div>

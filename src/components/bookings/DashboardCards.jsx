@@ -19,7 +19,7 @@ const DashboardCards = () => {
              <h3 className="text-3xl font-black font-headline uppercase tracking-tighter">Care Continuity</h3>
           </div>
           <p className="max-w-md opacity-80 text-xl font-medium font-body leading-relaxed">
-            You've successfully maintained your care schedule for 12 consecutive
+            You&apos;ve successfully maintained your care schedule for 12 consecutive
             weeks. Consistency leads to better outcomes and deeper connections.
           </p>
         </div>

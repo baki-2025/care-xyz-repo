@@ -34,8 +34,8 @@ export default function NotFound() {
               </h1>
 
               <p className="text-xl text-on-surface-variant leading-relaxed font-body max-w-md">
-                Even the best caregivers lose their way sometimes. We can't seem
-                to find the destination you're looking for, but we're here to
+                Even the best caregivers lose their way sometimes. We can&apos;t seem
+                to find the destination you&apos;re looking for, but we&apos;re here to
                 help you get back on track.
               </p>
             </div>
@@ -64,7 +64,7 @@ export default function NotFound() {
                   Contact Support
                 </span>
                 <span className="text-sm text-on-surface-variant mt-2 font-medium leading-relaxed">
-                  We're here to guide you.
+                  We&apos;re here to guide you.
                 </span>
               </Link>
             </div>

@@ -2,18 +2,13 @@
 
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Clock, MapPin, BadgeCheck, ChevronDown, Lock, XCircle } from "lucide-react";
+import { Clock, MapPin, BadgeCheck, ChevronDown, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import warehouses from "@/data/warehouses.json";
 import divisions from "@/data/division.json";
 import { careServices } from "@/data/careServices";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "@/components/book/CheckoutForm";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
-
-export default function BookingClient({ service, userId }) {
+export default function BookingClient({ service }) {
   const router = useRouter();
 
   // State for Service Type
@@ -36,8 +31,6 @@ export default function BookingClient({ service, userId }) {
   const [address, setAddress] = useState("");
   
   const [loading, setLoading] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
-  const [clientSecret, setClientSecret] = useState("");
 
   // Filter districts based on selected division
   const districts = useMemo(
@@ -85,56 +78,34 @@ export default function BookingClient({ service, userId }) {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: totalCost }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setClientSecret(data.clientSecret);
-        setShowPayment(true);
-      } else {
-        alert(data.error || "Failed to initiate payment.");
-      }
-    } catch (err) {
-      alert("Something went wrong connecting to payment gateway.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePaymentSuccess = async (transactionId) => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/bookings", {
+      const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          serviceId: activeService.id,
-          serviceName: activeService.title,
-          durationPlan,
-          durationValue,
-          location: {
-            division: selectedDivision,
-            district: selectedDistrict,
-            area: selectedArea,
-            postCode,
-            address,
+          bookingData: {
+            serviceId: activeService.id,
+            serviceName: activeService.title,
+            durationPlan,
+            durationValue,
+            location: {
+              division: selectedDivision,
+              district: selectedDistrict,
+              area: selectedArea,
+              postCode,
+              address,
+            },
+            totalCost,
           },
-          totalPrice: totalCost,
-          transactionId,
-          paymentStatus: "paid",
         }),
       });
       const data = await res.json();
       if (res.ok) {
-        router.push("/my-bookings");
+        window.location.href = data.url;
       } else {
-        alert(data.error || "Payment successful, but failed to save booking. Please contact support.");
+        alert(data.error || "Failed to initiate payment.");
       }
-    } catch (err) {
-      alert("Something went wrong saving your booking.");
+    } catch (_) {
+      alert("Something went wrong connecting to payment gateway.");
     } finally {
       setLoading(false);
     }
@@ -406,43 +377,13 @@ export default function BookingClient({ service, userId }) {
 
           <motion.button
             onClick={handleInitiatePayment}
-            disabled={loading || showPayment}
+            disabled={loading}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className={`w-full bg-surface-container-lowest text-primary py-6 rounded-[2rem] font-black text-2xl shadow-2xl transition-all transform ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-surface active:scale-95"}`}
           >
             {loading ? "Processing..." : "Pay & Confirm"}
           </motion.button>
-
-          {/* Payment Modal/Overlay */}
-          {showPayment && clientSecret && (
-            <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-6">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-surface-container-lowest rounded-[3rem] p-10 max-w-lg w-full shadow-2xl relative"
-              >
-                <button 
-                  onClick={() => setShowPayment(false)}
-                  className="absolute top-8 right-8 text-on-surface-variant hover:text-primary transition-colors"
-                >
-                  <XCircle size={32} />
-                </button>
-                
-                <h3 className="text-3xl font-headline font-black text-primary mb-6 uppercase tracking-tighter">
-                  Complete Payment
-                </h3>
-                
-                <Elements stripe={stripePromise} options={{ clientSecret }}>
-                  <CheckoutForm amount={totalCost} onPaymentSuccess={handlePaymentSuccess} />
-                </Elements>
-                
-                <p className="mt-8 text-xs text-on-surface-variant text-center font-medium">
-                  Payments are secure and encrypted via <strong>Stripe</strong>.
-                </p>
-              </motion.div>
-            </div>
-          )}
 
           <div className="flex items-center justify-center space-x-3 text-on-primary/60 text-[10px] font-black uppercase tracking-widest leading-none">
             <Lock size={14} className="text-on-primary/40" />

@@ -4,6 +4,7 @@ import React from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const ServicesBento = () => {
   return (
@@ -57,10 +58,12 @@ const ServicesBento = () => {
             </div>
           </div>
           <div className="absolute bottom-0 right-0 w-[60%] h-[75%] group-hover:scale-105 transition-transform duration-700 ease-out z-0">
-            <img
+            <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmD6GqHQ0-htTQkvxrokevINej0bkRn6iZqUp-Wu6nl7rcxQLOasResetObHTJFUkJmxBgu-k1Fp2O823iePJEbG8rRkfU71u5sTCNPCuSAOMD7xvZMnSoUNtlm0y-gJA0_72UbOoZapLLwyN2ynwhytMl5tbDr-Ie1o77lJAF-ZQp282gPRgSzxTmXoqHDlDEEgiukxb9J1oz54i3VkTf0Xh8sSsfws3gc83IJQmtrFu3aRxeLv2cOsJEj5G_uQOFLWw8T6gBRg"
               alt="Baby playing"
-              className="w-full h-full object-cover rounded-tl-[4rem] opacity-50 md:opacity-100"
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className="object-cover rounded-tl-[4rem] opacity-50 md:opacity-100"
             />
           </div>
         </motion.div>

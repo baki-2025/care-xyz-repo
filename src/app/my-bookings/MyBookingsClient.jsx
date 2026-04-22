@@ -20,7 +20,7 @@ export default function MyBookingsClient() {
         const data = await res.json();
         setBookings(data.bookings);
       }
-    } catch (err) {
+    } catch (_) {
       console.error("Failed to fetch bookings");
     } finally {
       setLoading(false);
@@ -45,7 +45,7 @@ export default function MyBookingsClient() {
         const err = await res.json();
         alert(err.error || "Failed to cancel");
       }
-    } catch (error) {
+    } catch (_) {
       alert("An error occurred");
     } finally {
       setCancelling(null);
@@ -81,7 +81,7 @@ export default function MyBookingsClient() {
           </div>
           <h3 className="text-2xl font-black font-headline mb-2">No bookings found</h3>
           <p className="text-on-surface-variant mb-8 max-w-sm mx-auto">
-            You haven't requested any care services yet. Explore our services and book your first appointment!
+            You haven&apos;t requested any care services yet. Explore our services and book your first appointment!
           </p>
           <Link
             href="/"

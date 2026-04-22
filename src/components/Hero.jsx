@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const caregivers = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCcflQdP7dDCWy8lyuOW8tV_911ks7xTO7NEk5a9gJY14Q-A5oW5nJQMX75z8N1aJEjkRVnrdByF7lS8t9MfGSsVGUcYAi_whUPrJK7teZCvumfhwHWnui80jUjmbtFgKmOuplfoObfrXH8SIN7dzJ_WW7-T5I1Fh46m9dEbkvXvU0VqlHCpy2VOpa2OBCYWJsaqKwiCAMrn-CK1b_RCWR3EfHLvy09-QWttuIp3vijgJ3t8Al7XjhUW1rLsYjuNP28pE5lqNxxsg",
@@ -65,10 +65,12 @@ const Hero = () => {
                     transition={{ delay: 0.3 + i * 0.1 }}
                     className="w-12 h-12 rounded-full border-4 border-surface overflow-hidden relative"
                   >
-                    <img
+                    <Image
                       src={src}
                       alt={`Caregiver ${i + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="48px"
+                      className="object-cover"
                     />
                   </motion.div>
                 ))}
@@ -92,10 +94,13 @@ const Hero = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-primary-container/20 blur-[100px] rounded-full" />
             
             <div className="w-full h-full relative overflow-hidden rounded-[3rem] shadow-3xl ring-1 ring-primary/5">
-              <img
+              <Image
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUK2hbs6_nCvN2ACj14BIQuVpJyjU0GXCfpaIjVo64uYK0Qbv4x7s246SnDD0yxlEqMxv84Ay5kqBLRVeGB1styT2bPeNIqI2sbzJ38aSd3EPTFlitYMnrnudSkWbNm5m9XdpH4Bg9fngERHqOrLrPNuwp83lvz2SEV1F7dTo35fCqi3pVW73dXyrvHg_j7wCNALk-PmfPmq5WhUBGpMbhFXcnssQFPvQAGPA9lFLwKMX1hupafdPxtGe5NczWjNCEC-GLVF9jCg"
                 alt="Caregiver and elderly lady"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="eager"
+                className="object-cover"
               />
             </div>
 
@@ -111,7 +116,7 @@ const Hero = () => {
                 <span className="font-extrabold text-primary">4.9 / 5.0 Rating</span>
               </div>
               <p className="text-sm text-on-surface-variant font-medium leading-relaxed italic">
-                "The level of attention and genuine care was beyond what we expected for our mother."
+                &ldquo;The level of attention and genuine care was beyond what we expected for our mother.&rdquo;
               </p>
             </motion.div>
           </motion.div>

@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Lock, Heart, ShieldCheck } from "lucide-react";
+import { Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const BookingSummary = () => {
   return (
@@ -74,10 +75,12 @@ const BookingSummary = () => {
         whileHover={{ y: -5 }}
         className="p-8 bg-secondary-container/30 rounded-[3rem] flex items-start space-x-6 border border-primary/5 shadow-sm"
       >
-        <img
+        <Image
           className="w-20 h-20 rounded-full object-cover shadow-xl border-4 border-white/20"
           alt="Caregiver"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC-qtIFRkOkZEWy-2xCEmePLFfhXzPcsjnFuJvlLK7bo4K0h76YQrsvMdAWa_hILOXZD-sdH0GKjvf8DSZC6zanfdPNiVwWT79-OUEgKfh678ywwknjmWOACi_XVMz3bSTYsj-55royNdMBlUVB1USXzH4nPoHEQqVGxSHzxmQs_C5foNAgNXjQkiH2U9z9MIXD7eiPPEKtz-VWrMlh92uaxGsGkvcERHV1hN73QzHfxQ7b3siVRd6CHvZZiRsv4iH6IKHKSLKwQ"
+          width={80}
+          height={80}
         />
         <div>
           <h4 className="font-headline font-black text-primary text-xl leading-tight">

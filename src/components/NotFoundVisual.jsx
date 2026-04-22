@@ -36,7 +36,7 @@ const NotFoundVisual = () => (
             </span>
           </div>
           <p className="text-sm text-on-surface-variant italic font-medium leading-relaxed">
-            "Sometimes taking a wrong turn leads us to exactly where we need to rest."
+            &ldquo;Sometimes taking a wrong turn leads us to exactly where we need to rest.&rdquo;
           </p>
         </div>
       </div>

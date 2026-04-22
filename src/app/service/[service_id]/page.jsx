@@ -15,6 +15,29 @@ export async function generateMetadata({ params }) {
   return {
     title: `${service.title} | Care.xyz`,
     description: service.shortDescription,
+    keywords: [`${service.title}`, "home care", "caregivers", "Bangladesh", service.category || "care services"],
+    openGraph: {
+      title: `${service.title} | Care.xyz`,
+      description: service.shortDescription,
+      url: `https://care.xyz/service/${service.id}`,
+      siteName: "Care.xyz",
+      images: [
+        {
+          url: service.image,
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} | Care.xyz`,
+      description: service.shortDescription,
+      images: [service.image],
+    },
   };
 }
 
@@ -39,6 +62,7 @@ export default async function ServiceDetailPage({ params }) {
                 src={service.image} 
                 alt={service.title} 
                 fill 
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
                 unoptimized
               />
@@ -80,7 +104,7 @@ export default async function ServiceDetailPage({ params }) {
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-on-surface">What's Included</h3>
+                <h3 className="text-xl font-bold text-on-surface">What&apos;s Included</h3>
                 <ul className="space-y-3">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center space-x-3 text-on-surface-variant font-medium">

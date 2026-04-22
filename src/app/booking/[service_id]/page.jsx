@@ -27,9 +27,6 @@ export default async function BookingPage({ params }) {
     redirect("/"); // Or to a 404
   }
 
-  // extract the user ID
-  const userId = session.user.id || "";
-
   return (
     <>
       <Navbar />
@@ -37,7 +34,7 @@ export default async function BookingPage({ params }) {
         <div className="mb-12">
           <BookingHeader />
         </div>
-        <BookingClient service={service} userId={userId} />
+        <BookingClient service={service} />
       </main>
       <Footer />
     </>

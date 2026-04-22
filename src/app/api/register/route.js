@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/db';
 import bcrypt from 'bcryptjs';
+import { sendWelcomeEmail } from '@/lib/email';
 
 export async function POST(req) {
   try {
@@ -36,6 +37,9 @@ export async function POST(req) {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
+    // Send welcome email to new user
+    await sendWelcomeEmail(name, email);
 
     return NextResponse.json({ message: 'User created successfully.', user: { id: result.insertedId, email, name } }, { status: 201 });
   } catch (error) {

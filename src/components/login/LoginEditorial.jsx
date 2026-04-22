@@ -3,6 +3,7 @@
 import React from "react";
 import { ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 
 const LottiePlayer = dynamic(() => import("@/components/LottiePlayer"), { ssr: false });
@@ -51,7 +52,7 @@ const LoginEditorial = () => {
         </h1>
         <p className="text-on-primary-container text-lg leading-relaxed font-body font-medium opacity-90">
           Managing care should be as calming as receiving it. Log in to
-          continue your journey with the world's most empathetic care
+          continue your journey with the world&apos;s most empathetic care
           community.
         </p>
       </div>
@@ -66,9 +67,9 @@ const LoginEditorial = () => {
           {caregivers.map((src, i) => (
             <div
               key={i}
-              className="w-12 h-12 rounded-full border-2 border-primary overflow-hidden shadow-lg"
+              className="w-12 h-12 rounded-full border-2 border-primary overflow-hidden shadow-lg relative"
             >
-              <img src={src} className="w-full h-full object-cover" />
+              <Image src={src} alt={`Caregiver ${i + 1}`} fill sizes="48px" className="object-cover" />
             </div>
           ))}
         </div>

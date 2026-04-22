@@ -54,17 +54,10 @@ const Testimonials = () => {
               </div>
 
               <p className="text-on-surface text-lg font-medium italic mb-10 leading-relaxed font-body flex-1">
-                "{review.review}"
+                &ldquo;{review.review}&rdquo;
               </p>
 
               <div className="flex items-center gap-4 mt-auto">
-                <div className="w-14 h-14 rounded-full bg-secondary-container overflow-hidden border-2 border-primary/10 shrink-0">
-                  <img
-                    src={review.user_photoURL}
-                    alt={review.userName}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
                 <div>
                   <h5 className="font-bold text-primary font-headline">{review.userName}</h5>
                   <p className="text-xs text-on-surface-variant font-bold uppercase tracking-wider">

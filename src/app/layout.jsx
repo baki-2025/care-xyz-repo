@@ -15,6 +15,7 @@ const manrope = Manrope({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
   title: {
     default: "Care.xyz | Trusted Baby Sitting & Elderly Care",
     template: "%s | Care.xyz"

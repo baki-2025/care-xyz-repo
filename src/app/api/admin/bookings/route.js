@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import connectToDatabase from '@/lib/db';
 
-export async function GET(req) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     

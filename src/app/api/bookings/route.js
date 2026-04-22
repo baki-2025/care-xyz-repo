@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import connectToDatabase from '@/lib/db';
 import { ObjectId } from 'mongodb';
+import { sendBookingInvoice } from '@/lib/email';
 
 export async function POST(req) {
   try {
@@ -11,7 +12,16 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { serviceId, serviceName, durationPlan, durationValue, location, totalPrice } = await req.json();
+    const { 
+      serviceId, 
+      serviceName, 
+      durationPlan, 
+      durationValue, 
+      location, 
+      totalPrice,
+      paymentStatus,
+      transactionId 
+    } = await req.json();
 
     if (!serviceId || !serviceName || !durationPlan || !durationValue || !location || !location.division || !location.address) {
       return NextResponse.json({ error: 'Missing required booking details.' }, { status: 400 });
@@ -42,7 +52,6 @@ export async function POST(req) {
     const newBooking = { ...bookingData, _id: result.insertedId };
 
     // Send real email invoice
-    const { sendBookingInvoice } = require('@/lib/email');
     await sendBookingInvoice(
       { ...newBooking, userName: session.user.name },
       session.user.email

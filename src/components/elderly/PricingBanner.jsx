@@ -13,7 +13,7 @@ const PricingBanner = () => {
             Pricing Tailored <br/> to Your Needs
           </h2>
           <p className="text-on-primary-container mb-10 text-lg font-medium opacity-90 max-w-sm">
-            Transparent rates with no hidden fees. Choose a plan that fits your family's specific requirements.
+            Transparent rates with no hidden fees. Choose a plan that fits your family&apos;s specific requirements.
           </p>
           <div className="space-y-4">
             {[

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 
 const LottiePlayer = dynamic(() => import("@/components/LottiePlayer"), { ssr: false });
@@ -9,10 +10,12 @@ const LottiePlayer = dynamic(() => import("@/components/LottiePlayer"), { ssr: f
 const RegisterEditorial = () => {
   return (
     <div className="relative hidden lg:block bg-primary overflow-hidden h-full min-h-[700px]">
-      <img
+      <Image
         className="absolute inset-0 w-full h-full object-cover opacity-60"
         alt="Compassionate healthcare professional"
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl1Ho-xmKyyYQRU6KE8UxOPYUVIhGPRcxE0uCjqrp-P-qQjDUbflvI9PKhjHAsU40yKTIb2BFYhV11qlwTy7IC_q0HKyVPNt_6mkcRcH8tPY2XWBpGA0DfYijZgUrxm4oyvfvIQa623Tcv8BfwEYYgIne--1rq5nQs1yVAAUp5VU2fb8D2Zpm-SU_eLvTh9FmZ-kv86hyTOLSwFEnKfUT7FPtG6mQLMsQCDLqaqrkKHE5p81MtohII81BRP-MhyM41L-3bbwFPHQ"
+        fill
+        sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary-container/40 to-transparent"></div>
       <div className="relative h-full flex flex-col justify-between p-12 text-on-primary">

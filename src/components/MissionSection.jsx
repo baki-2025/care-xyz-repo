@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const MissionSection = () => {

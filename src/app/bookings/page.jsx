@@ -4,13 +4,22 @@ import Footer from "@/components/Footer";
 import ProfileHeader from "@/components/bookings/ProfileHeader";
 import BookingList from "@/components/bookings/BookingList";
 import DashboardCards from "@/components/bookings/DashboardCards";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "My Bookings | Care.IO",
   description: "Manage your personalized care journey, upcoming visits, and view your care history with our professional sanctuary.",
 };
 
-export default function BookingsPage() {
+export default async function BookingsPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user) {
+    redirect("/login?callbackUrl=/bookings");
+  }
+
   return (
     <>
       <Navbar />

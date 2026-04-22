@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { BadgeCheck, Heart } from "lucide-react";
+import Image from "next/image";
 
 const ElderlyHero = () => {
   return (
@@ -36,9 +37,11 @@ const ElderlyHero = () => {
           transition={{ duration: 0.8 }}
           className="rounded-[2.5rem] overflow-hidden aspect-[4/5] bg-surface-container-low shadow-2xl relative z-10"
         >
-          <img
+          <Image
             alt="Elderly Care"
-            className="w-full h-full object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV3FIonBDzhnhZFQxXBDrXV7Peh0FNJ459E5p5Gu2j8G3mevS-Um7tWsp8rBIuAvBNthJKC50KqirnpY4A8rdHHo_pAZYfEhfluhf_4e2vfrgrZHhXRume_-Zn7qttN_DF4dnffCesyclYAjigEg7bS4qkIohx7pP-FJx0OSj5ofsmXJNT8H6bSxWJPasim1Hnu6FXIcSEU8pT8fU07wFHPDxo4c9zoARKS9bRxVSovY4wyO-pjj9GxnpgzioZwuxzl9XEQUjs6Q"
           />
         </motion.div>
