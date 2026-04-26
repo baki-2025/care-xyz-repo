@@ -24,7 +24,7 @@ const Navbar = () => {
     { name: "Services", href: "#services" },
     { name: "About Us", href: "#about" },
     { name: "Testimonials", href: "#testimonials" },
-    { name: "My Bookings", href: "/bookings" },
+    { name: "My Bookings", href: "/my-bookings" },
   ];
 
   return (
@@ -44,7 +44,7 @@ const Navbar = () => {
               animate={{ opacity: 1, x: 0 }}
               className="text-2xl font-bold tracking-tight text-primary font-headline cursor-pointer"
             >
-              Care.IO
+              Care.XYZ
             </motion.span>
           </Link>
           

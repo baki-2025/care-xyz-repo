@@ -7,7 +7,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const RegisterForm = () => {
+const RegisterForm = ({ callbackUrl = "/" }) => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [nid, setNid] = React.useState("");
@@ -22,6 +22,12 @@ const RegisterForm = () => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setError("Password must be at least 6 characters long and include one uppercase and one lowercase letter.");
       return;
     }
     
@@ -55,8 +61,6 @@ const RegisterForm = () => {
         setError("Account created, but couldn't log in.");
         setLoading(false);
       } else {
-        // If there's a specific callbackUrl (e.g. from booking), use it; else go to home
-        const callbackUrl = new URLSearchParams(window.location.search).get("callbackUrl") || "/";
         router.push(callbackUrl);
         router.refresh();
       }
@@ -68,7 +72,7 @@ const RegisterForm = () => {
   };
 
   const handleGoogleSignup = () => {
-    signIn("google", { callbackUrl: "/" });
+    signIn("google", { callbackUrl });
   };
 
   return (

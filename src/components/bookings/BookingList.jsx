@@ -22,7 +22,7 @@ const BookingList = () => {
         const data = await res.json();
         setBookings(data.bookings);
       }
-    } catch (_) {
+    } catch {
       console.error("Failed to fetch bookings");
     } finally {
       setLoading(false);
@@ -47,7 +47,7 @@ const BookingList = () => {
         const err = await res.json();
         alert(err.error || "Failed to cancel");
       }
-    } catch (_) {
+    } catch {
       alert("An error occurred");
     } finally {
       setCancelling(null);

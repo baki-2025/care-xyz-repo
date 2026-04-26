@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
 import { Clock, MapPin, BadgeCheck, ChevronDown, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import warehouses from "@/data/warehouses.json";
@@ -9,8 +8,6 @@ import divisions from "@/data/division.json";
 import { careServices } from "@/data/careServices";
 
 export default function BookingClient({ service }) {
-  const router = useRouter();
-
   // State for Service Type
   const [activeServiceId, setActiveServiceId] = useState(service.id);
   
@@ -104,7 +101,7 @@ export default function BookingClient({ service }) {
       } else {
         alert(data.error || "Failed to initiate payment.");
       }
-    } catch (_) {
+    } catch {
       alert("Something went wrong connecting to payment gateway.");
     } finally {
       setLoading(false);

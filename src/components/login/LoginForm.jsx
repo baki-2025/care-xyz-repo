@@ -7,7 +7,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const LoginForm = () => {
+const LoginForm = ({ callbackUrl = "/" }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isStaySignedIn, setIsStaySignedIn] = useState(false);
   const [email, setEmail] = useState("");
@@ -25,20 +25,20 @@ const LoginForm = () => {
       email,
       password,
       redirect: false,
+      callbackUrl,
     });
 
     if (res?.error) {
       setError("Invalid email or password");
       setLoading(false);
     } else {
-      // Added slightly delayed redirect for smoother UX
-      router.push("/");
+      router.push(callbackUrl);
       router.refresh();
     }
   };
 
   const handleGoogleLogin = () => {
-    signIn("google", { callbackUrl: "/" });
+    signIn("google", { callbackUrl });
   };
 
   return (

@@ -34,7 +34,7 @@ export default function SuccessContent() {
         } else {
           setError(data.error || "Failed to confirm payment");
         }
-      } catch (err) {
+      } catch {
         setError("Something went wrong");
       } finally {
         setLoading(false);

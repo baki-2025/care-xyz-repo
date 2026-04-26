@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 max-w-7xl mx-auto">
         <div className="lg:col-span-4">
           <span className="text-2xl font-bold text-primary font-headline mb-4 block">
-            Care.IO
+            Care.XYZ
           </span>
           <p className="font-body text-on-surface-variant max-w-sm mb-10 leading-relaxed text-lg">
             Providing compassionate, professional caregiving services for
@@ -73,7 +73,7 @@ const Footer = () => {
       
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-6">
         <span className="font-body text-sm font-semibold text-on-surface-variant">
-          © 2024 Care.IO. All rights reserved.
+          © 2024 Care.XYZ. All rights reserved.
         </span>
         <div className="flex gap-10">
           <a
