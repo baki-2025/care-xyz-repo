@@ -108,6 +108,46 @@ export default function BookingClient({ service }) {
     }
   };
 
+  const handleConfirmBooking = async () => {
+    if (!selectedDivision || !selectedDistrict || !selectedArea || !address) {
+      alert("Please fill in all location details and address.");
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serviceId: activeService.id,
+          serviceName: activeService.title,
+          durationPlan,
+          durationValue,
+          location: {
+            division: selectedDivision,
+            district: selectedDistrict,
+            area: selectedArea,
+            postCode,
+            address,
+          },
+          totalPrice: totalCost,
+          paymentStatus: "pending",
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        window.location.href = "/my-bookings";
+      } else {
+        alert(data.error || "Failed to confirm booking.");
+      }
+    } catch {
+      alert("Something went wrong connecting to the server.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
       {/* Form Journey Column */}
@@ -372,19 +412,31 @@ export default function BookingClient({ service }) {
             </div>
           </div>
 
-          <motion.button
-            onClick={handleInitiatePayment}
-            disabled={loading}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={`w-full bg-surface-container-lowest text-primary py-6 rounded-[2rem] font-black text-2xl shadow-2xl transition-all transform ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-surface active:scale-95"}`}
-          >
-            {loading ? "Processing..." : "Pay & Confirm"}
-          </motion.button>
+          <div className="flex flex-col gap-4">
+            <motion.button
+              onClick={handleConfirmBooking}
+              disabled={loading}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className={`w-full bg-surface-container-lowest text-primary py-6 rounded-[2rem] font-black text-xl shadow-2xl transition-all transform ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-surface active:scale-95"}`}
+            >
+              {loading ? "Processing..." : "Confirm Booking (Cash on Delivery)"}
+            </motion.button>
 
-          <div className="flex items-center justify-center space-x-3 text-on-primary/60 text-[10px] font-black uppercase tracking-widest leading-none">
+            <motion.button
+              onClick={handleInitiatePayment}
+              disabled={loading}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className={`w-full bg-[#1A1A1A] text-white py-4 rounded-[2rem] font-bold text-lg shadow-md transition-all transform border border-white/10 ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-black active:scale-95"}`}
+            >
+              Pay with Card (Stripe)
+            </motion.button>
+          </div>
+
+          <div className="flex items-center justify-center space-x-3 text-on-primary/60 text-[10px] font-black uppercase tracking-widest leading-none pt-4">
             <Lock size={14} className="text-on-primary/40" />
-            <span>Secure Cash on Delivery</span>
+            <span>Secure & Trusted Platform</span>
           </div>
         </motion.div>
       </aside>

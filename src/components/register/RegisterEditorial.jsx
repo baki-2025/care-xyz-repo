@@ -21,7 +21,7 @@ const RegisterEditorial = () => {
       <div className="relative h-full flex flex-col justify-between p-12 text-on-primary">
         <div className="flex items-center gap-2">
           <span className="text-3xl font-black tracking-tight font-headline uppercase leading-none">
-            Care.IO
+            Care.XYZ
           </span>
         </div>
         <div className="space-y-6">

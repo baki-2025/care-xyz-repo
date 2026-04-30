@@ -21,9 +21,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "About Us", href: "#about" },
-    { name: "Testimonials", href: "#testimonials" },
+    { name: "Services", href: "/#services" },
+    { name: "About Us", href: "/#about" },
+    { name: "Testimonials", href: "/#testimonials" },
+    { name: "Caregivers", href: "/caregivers" },
     { name: "My Bookings", href: "/my-bookings" },
   ];
 
@@ -77,15 +78,17 @@ const Navbar = () => {
               >
                 Logout
               </button>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-on-primary cursor-pointer shadow-md select-none"
-              >
-                <span className="font-bold text-lg">
-                  {session.user?.name?.[0]?.toUpperCase() || "U"}
-                </span>
-              </motion.div>
+              <Link href="/profile">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-on-primary cursor-pointer shadow-md select-none"
+                >
+                  <span className="font-bold text-lg">
+                    {session.user?.name?.[0]?.toUpperCase() || "U"}
+                  </span>
+                </motion.div>
+              </Link>
             </>
           ) : (
             <>
@@ -136,12 +139,19 @@ const Navbar = () => {
               ))}
               <hr className="border-outline-variant" />
               {session ? (
-                <button
-                  onClick={() => signOut()}
-                  className="w-full py-3 rounded-xl bg-error/10 text-error font-bold border border-error/20"
-                >
-                  Logout
-                </button>
+                <>
+                  <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)}>
+                    <button className="w-full py-3 rounded-xl bg-surface-container text-on-surface font-bold border border-outline-variant/20 mb-2">
+                      My Profile
+                    </button>
+                  </Link>
+                  <button
+                    onClick={() => signOut()}
+                    className="w-full py-3 rounded-xl bg-error/10 text-error font-bold border border-error/20"
+                  >
+                    Logout
+                  </button>
+                </>
               ) : (
                 <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
                   <button className="w-full py-3 rounded-xl bg-primary text-on-primary font-bold">
