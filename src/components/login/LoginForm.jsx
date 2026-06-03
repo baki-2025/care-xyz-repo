@@ -185,7 +185,7 @@ const LoginForm = ({ callbackUrl = "/" }) => {
 
       <div className="mt-12 text-center md:hidden">
         <p className="text-on-surface-variant font-bold text-sm">
-          New to Care.IO?
+          New to Care.XYZ?
           <Link className="text-primary font-black ml-2 underline decoration-2 underline-offset-4" href="/register">
             Create an account
           </Link>

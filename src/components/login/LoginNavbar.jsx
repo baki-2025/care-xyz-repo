@@ -14,7 +14,7 @@ const LoginNavbar = () => {
             animate={{ opacity: 1, x: 0 }}
             className="text-2xl font-black tracking-tight text-primary font-headline cursor-pointer"
           >
-            Care.IO
+            Care.XYZ
           </motion.span>
         </Link>
         <div className="hidden md:flex items-center gap-6">
