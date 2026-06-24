@@ -2,7 +2,7 @@ import React from "react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import BookingClient from "./BookingClient";
+import BookingClient from "@/components/book/BookingClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookingHeader from "@/components/book/BookingHeader";

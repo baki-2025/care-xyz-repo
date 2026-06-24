@@ -27,7 +27,7 @@ const MissionSection = () => {
               viewport={{ once: true }}
               className="text-xl text-on-surface-variant leading-relaxed mb-10 font-body"
             >
-              At Care.IO, we believe that quality care starts with deep empathy. Our platform was built to bridge the gap between families in need and professionals who view caregiving as a calling, not just a career. Every caretaker on our platform undergoes a rigorous multi-stage vetting process.
+              At Care.XYZ, we believe that quality care starts with deep empathy. Our platform was built to bridge the gap between families in need and professionals who view caregiving as a calling, not just a career. Every caretaker on our platform undergoes a rigorous multi-stage vetting process.
             </motion.p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="flex gap-4 items-start">
